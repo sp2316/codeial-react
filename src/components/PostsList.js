@@ -61,7 +61,7 @@ class PostsList extends Component {
   }
 }
 
-PostsList.PropTypes = {
+PostsList.propTypes = {
   posts: PropTypes.array.isRequired,
 };
 
