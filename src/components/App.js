@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchPosts } from '../actions/posts';
+import { PostsList } from './';
 
 class App extends React.Component {
   componentDidMount() {
@@ -9,7 +10,13 @@ class App extends React.Component {
   }
 
   render() {
-    return <div>App</div>;
+    const { posts } = this.props;
+
+    return (
+      <div>
+        <PostsList posts={posts} />
+      </div>
+    );
   }
 }
 
