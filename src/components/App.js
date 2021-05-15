@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { fetchPosts } from '../actions/posts';
-import { Home, Navbar, Page404 } from './';
+import { Home, Navbar, Page404, Login } from './';
 
-const Login = () => <div>Login</div>;
 const Signup = () => <div>Signup</div>;
 
 class App extends React.Component {
