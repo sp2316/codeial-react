@@ -1,5 +1,12 @@
 import { APIUrls } from '../helpers/urls';
-import { LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS } from './actionTypes';
+import {
+  LOGIN_FAILED,
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  SIGNUP_FAILED,
+  SIGNUP_START,
+  SIGNUP_SUCCESS,
+} from './actionTypes';
 import { getFormBody } from '../helpers/utils';
 
 export function startLogin() {
@@ -31,7 +38,7 @@ export function login(email, password) {
     fetch(url, {
       method: 'post',
       headers: {
-        'Content-Type': 'application/x-ww-form-urlencoded', //if api accepts json,this doesnt need to be specified
+        'Content-Type': 'application/x-www-form-urlencoded', //if api accepts json,this doesnt need to be specified
       },
       body: getFormBody({ email, password }),
     })
@@ -41,8 +48,58 @@ export function login(email, password) {
         if (data.success) {
           //dispatch action to save user
           dispatch(loginSuccess(data.data.user));
+          return;
         }
         dispatch(loginFailed(data.message));
       });
+  };
+}
+
+export function signup(email, password, confirmPassword, name) {
+  return (dispatch) => {
+    dispatch(startSignup());
+    const url = APIUrls.signup();
+    console.log(email, password, confirmPassword, name);
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: getFormBody({
+        email,
+        password,
+        confirm_password: confirmPassword,
+        name,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          localStorage.setItem('token', data.data.token);
+          dispatch(signupSuccessful(data.data.user));
+          return;
+        }
+        dispatch(signupFailed(data.message));
+      });
+  };
+}
+
+export function startSignup() {
+  return {
+    type: SIGNUP_START,
+  };
+}
+
+export function signupFailed(error) {
+  return {
+    type: SIGNUP_FAILED,
+    error,
+  };
+}
+
+export function signupSuccessful(user) {
+  return {
+    type: SIGNUP_SUCCESS,
+    user,
   };
 }
