@@ -8,3 +8,7 @@ export function getFormBody(params) {
   }
   return formBody.join('&'); //['user%20name=akash&password=12312'];
 }
+
+export function getAuthTokenFromLocalStorage() {
+  return localStorage.getItem('token');
+}
