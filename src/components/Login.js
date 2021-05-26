@@ -40,9 +40,10 @@ class Login extends Component {
   };
   render() {
     const { error, inProgress, isLoggedin } = this.props.auth;
-
+    //we get the state from the location and if state exists,we get it otherwise we redirect to home page
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
     if (isLoggedin) {
-      return <Redirect to="/" />;
+      return <Redirect to={from} />;
     }
 
     return (
