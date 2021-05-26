@@ -46,14 +46,14 @@ class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
 
-    const token = localStorage.getItem('token');
+    const token = getAuthTokenFromLocalStorage();
 
     if (token) {
       const user = jwtDecode(token); //decodes the middle part of jwt token and gets info about the user
       this.props.dispatch(
         authenticateUser({
           email: user.email,
-          _id: user.id,
+          _id: user._id,
           name: user.name,
         })
       );
@@ -63,6 +63,7 @@ class App extends React.Component {
   render() {
     const { posts, auth } = this.props;
 
+    console.log(auth.user, auth.user._id);
     return (
       <Router>
         <div>

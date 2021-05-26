@@ -2,7 +2,8 @@ import { APIUrls } from '../helpers/urls';
 import {
   AUTHENTICATE_USER,
   CLEAR_AUTH_STATE,
-  EDIT_USER_FIELD,
+  EDIT_USER_SUCCESSFUL,
+  EDIT_USER_FAILED,
   LOGIN_FAILED,
   LOGIN_START,
   LOGIN_SUCCESS,
@@ -53,6 +54,7 @@ export function login(email, password) {
         if (data.success) {
           //dispatch action to save user
           localStorage.setItem('token', data.data.token);
+
           dispatch(loginSuccess(data.data.user));
           return;
         }
@@ -131,14 +133,14 @@ export function clearAuthState() {
 
 export function editUserSuccessful(user) {
   return {
-    type: EDIT_USER_FIELD,
+    type: EDIT_USER_SUCCESSFUL,
     user,
   };
 }
 
 export function editUserFailed(error) {
   return {
-    type: EDIT_USER_FIELD,
+    type: EDIT_USER_FAILED,
     error,
   };
 }
@@ -150,7 +152,7 @@ export function editUser(name, password, confirmPassword, userId) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Bearer ${getAuthTokenFromLocalStorage}`,
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
       body: getFormBody({
         name,
@@ -161,7 +163,7 @@ export function editUser(name, password, confirmPassword, userId) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data);
+        console.log('Edit user data', data);
         if (data.success) {
           dispatch(editUserSuccessful(data.data.user));
 
