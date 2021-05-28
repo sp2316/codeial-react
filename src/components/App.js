@@ -22,7 +22,6 @@ import {
 import { authenticateUser } from '../actions/auth';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 import { fetchUserFriends } from '../actions/friends';
-import friends from '../reducers/friends';
 
 // Redirectin issue- 1.consider a user,who isnt logged in, goes to settings url and
 //  gets redirected to login page..logs in..after logging in he goes to the home page instead of the setting page
@@ -67,7 +66,7 @@ class App extends React.Component {
           name: user.name,
         })
       );
-      this.props.dispatch(fetchUserFriends());
+      this.props.dispatch(fetchUserFriends(user._id));
     }
   }
 
