@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { PostsList } from './';
+import FriendsList from './FriendsList';
 
 class Home extends Component {
   render() {
-    const { posts } = this.props;
+    const { posts, friends, isLoggedin } = this.props;
     console.log(this.props);
     return (
       <div className="home">
         <PostsList posts={posts} />
+        {isLoggedin && <FriendsList friends={friends} />}
       </div>
     );
   }
