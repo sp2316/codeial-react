@@ -3,7 +3,7 @@ import { fetchUserProfile } from '../actions/profile';
 import { connect } from 'react-redux';
 import { APIUrls } from '../helpers/urls';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
-import { addFriend } from '../actions/friends';
+import { addFriend, removeFriend } from '../actions/friends';
 // import { addFriend } from './actions/friends';
 class UserProfile extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class UserProfile extends Component {
     this.state = {
       success: null,
       error: null,
+      successMessage: null,
     };
   }
 
@@ -53,8 +54,39 @@ class UserProfile extends Component {
     if (data.success) {
       this.setState({
         success: true,
+        successMessage: 'Added friend succesfully',
       });
+      console.log('hi', data.data.friendship);
       this.props.dispatch(addFriend(data.data.friendship));
+    } else {
+      this.setState({
+        success: null,
+        error: data.message,
+      });
+    }
+  };
+
+  handleRemoveFriendClick = async () => {
+    const { match } = this.props;
+    const url = APIUrls.removeFriend(match.params.userId);
+
+    const extra = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      },
+    };
+
+    const response = await fetch(url, extra);
+    const data = await response.json();
+
+    if (data.success) {
+      this.setState({
+        success: true,
+        successMessage: 'Removed friend succesfully',
+      });
+      this.props.dispatch(removeFriend(match.params.userId));
     } else {
       this.setState({
         success: null,
@@ -106,7 +138,12 @@ class UserProfile extends Component {
               Add friend
             </button>
           ) : (
-            <button className="button save-btn">Remove friend</button>
+            <button
+              className="button save-btn"
+              onClick={this.handleRemoveFriendClick}
+            >
+              Remove friend
+            </button>
           )}
           {success && (
             <div className="alert success-dailog">
