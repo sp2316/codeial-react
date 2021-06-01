@@ -109,7 +109,7 @@ class UserProfile extends Component {
       return <h1>Loading</h1>;
     }
     const isUserAFriend = this.checkIfUserIsAFriend();
-    const { success, error } = this.state;
+    const { success, error, successMessage } = this.state;
     return (
       <div className="settings">
         <div className="img-container">
@@ -146,9 +146,7 @@ class UserProfile extends Component {
             </button>
           )}
           {success && (
-            <div className="alert success-dailog">
-              Friend added successfully
-            </div>
+            <div className="alert success-dailog">{successMessage}</div>
           )}
           {error && <div className="alert success-dailog">{error}</div>}
         </div>

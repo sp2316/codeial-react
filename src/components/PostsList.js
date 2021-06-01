@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { CreatePost } from './index';
 
 class PostsList extends Component {
   render() {
     const { posts } = this.props;
     return (
       <div className="posts-list">
+        <CreatePost />
         {posts.map((post) => (
           <div className="post-wrapper" key={post._id}>
             <div className="post-header">
@@ -20,7 +22,7 @@ class PostsList extends Component {
               </div>
               <div>
                 <span className="post-author">{post.user.name}</span>
-                <span className="post-time">a minute ago</span>
+                <span className="post-time"> a minute ago</span>
               </div>
             </div>
             <div className="post-content">{post.content}</div>

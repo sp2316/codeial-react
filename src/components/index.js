@@ -7,6 +7,8 @@ import Login from './Login';
 import Signup from './Signup';
 import Settings from './Settings';
 import UserProfile from './UserProfile';
+import CreatePost from './CreatePost';
+
 export {
   PostsList,
   App,
@@ -17,4 +19,5 @@ export {
   Signup,
   Settings,
   UserProfile,
+  CreatePost,
 };

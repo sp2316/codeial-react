@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { createPost } from '../actions/posts';
+import { connect } from 'react-redux';
 class CreatePost extends Component {
   constructor(props) {
     super(props);
@@ -7,7 +8,9 @@ class CreatePost extends Component {
       content: '',
     };
   }
-  handleClick = () => {};
+  handleClick = () => {
+    this.props.dispatch(createPost(this.state.content));
+  };
   handleChange = (e) => {
     this.setState({
       content: e.target.value,
@@ -22,7 +25,7 @@ class CreatePost extends Component {
           onChange={this.handleChange}
         />
         <div>
-          <button id="add-post-btn" onClick={thiss / handleClick}>
+          <button id="add-post-btn" onClick={this.handleClick}>
             Add Post
           </button>
         </div>
@@ -30,5 +33,5 @@ class CreatePost extends Component {
     );
   }
 }
-
-export default C;
+// i want only dispatch..so no need to pass other props
+export default connect()(CreatePost);
