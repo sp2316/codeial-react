@@ -11,7 +11,7 @@ const FriendsList = (props) => {
       )}
       {props.friends &&
         props.friends.map((friend) => (
-          <FriendsListItem friend={friend.to_user} key="{friend._id" />
+          <FriendsListItem friend={friend.to_user} key={friend._id} />
         ))}
     </div>
   );
