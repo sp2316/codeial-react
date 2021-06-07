@@ -4,9 +4,7 @@ import { FETCH_SEARCH_RESULTS_SUCCESS } from './actionTypes';
 
 export function searchUsers(searchText) {
   return (dispatch) => {
-    dispatch(startUserProfileFetch());
-
-    const url = APIUrls.editProfile(searchText);
+    const url = APIUrls.searchText(searchText);
 
     fetch(url, {
       headers: {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Comment } from './';
 import { connect } from 'react-redux';
@@ -101,10 +100,6 @@ class Post extends Component {
     );
   }
 }
-
-Post.propTypes = {
-  posts: PropTypes.array.isRequired,
-};
 
 function mapStateToProps({ auth }) {
   return {

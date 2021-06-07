@@ -16,11 +16,27 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
+    //when page re renders this doesnt get called
     const { match } = this.props;
     console.log('userId', match.params.userId);
     if (match.params.userId) {
       //dispatch an action to fetch particular user
       this.props.dispatch(fetchUserProfile(match.params.userId));
+    }
+  }
+  componentDidUpdate(prevProps) {
+    //so we use this to fetch userId when clicked on search results  the second time
+    const { params: prevParams } = prevProps.match; // we got params from prevProps
+    //or const {match:{params:prevProps}}=prevProps' this is called nested destructuring,getting match from prevProps from which we get params
+    const {
+      match: { params: currentParams },
+    } = this.props; //new props
+    if (
+      prevParams &&
+      currentParams &&
+      prevParams.userId !== currentParams.userId
+    ) {
+      this.props.dispatch(fetchUserProfile(currentParams.userId));
     }
   }
 
@@ -99,7 +115,7 @@ class UserProfile extends Component {
     //   props->match->params->userId
     //same as {params}=this.props.match
     const {
-      match: { params },
+      // match: { params },
       profile,
     } = this.props;
 
