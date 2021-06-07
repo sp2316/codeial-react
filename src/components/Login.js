@@ -14,7 +14,6 @@ class Login extends Component {
 
   componentWillUnmount() {
     this.props.dispatch(clearAuthState());
-    console.log(this.props.auth.user);
   }
 
   handleEmailChange = (e) => {
